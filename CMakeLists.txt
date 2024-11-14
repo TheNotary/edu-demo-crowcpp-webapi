@@ -1,16 +1,15 @@
-cmake_minimum_required(VERSION 3.10)
-project(ProjectName)
+cmake_minimum_required(VERSION 3.15)
+project(my_crow_app)
 
-# Find all .cpp files in the src/ directory, this isn't a best practice because it makes cmake not know what to build when things are changed supposedly?
-file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
-
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-enable_testing ()
+find_package(Crow CONFIG REQUIRED)
 
-include_directories (${PROJECT_BINARY_DIR}/ext/include)
-link_directories (${PROJECT_BINARY_DIR}/ext/lib)
+# Add the executable
+add_executable(my_crow_app src/main.cpp)
 
-add_subdirectory (ext)
-add_subdirectory (src)
-#add_subdirectory (test)
+# Link with Crow library
+target_link_libraries(my_crow_app PUBLIC Crow::Crow)
+
